@@ -23,6 +23,12 @@ variable "log_stream_name" {
 
 # SNS TOPIC, LOG GROUP, LOG STREAM
 
+variable "enable_data_encryption" {
+  type = bool
+  description = "Enables data encryption on specific resources"
+  default = false
+}
+
 variable "create_sns_topic" {
   default     = true
   description = "Boolean flag that determines if SNS topic, 'sns_topic_name' is created. If 'false' it uses an existing topic of that name."

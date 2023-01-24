@@ -89,10 +89,21 @@ data "aws_sns_topic" "sns_log_topic" {
 #   create new log_group (if create_log_group set)
 # -----------------------------------------------------------------
 
+resource "aws_kms_key" "sns_logged_item_group_key" {
+  count = var.enable_data_encryption ? 1 : 0
+  description = "This key is used to encrypt shutdown_lambda log objects"
+  deletion_window_in_days = 7
+  policy = data.aws_iam_policy_document.kms_log_access.json
+}
+
 resource "aws_cloudwatch_log_group" "sns_logged_item_group" {
   count             = var.create_log_group ? 1 : 0
   name              = var.log_group_name
   retention_in_days = var.log_group_retention_days
+  kms_key_id        = var.enable_data_encryption ? aws_kms_key.sns_logged_item_group_key[0].arn : null
+  depends_on  = [
+    aws_kms_key.sns_logged_item_group_key
+  ]
 }
 
 # retrieve log group if not created, arn included in outputs

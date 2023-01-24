@@ -1,6 +1,6 @@
 # terraform-aws-sns-to-cloudwatch-logs-lambda
 
-[![Latest Release](https://img.shields.io/github/release/robertpeteuil/terraform-aws-sns-to-cloudwatch-logs-lambda.svg)](https://github.com/robertpeteuil/terraform-aws-sns-to-cloudwatch-logs-lambda) [![license](https://img.shields.io/github/license/robertpeteuil/terraform-aws-sns-to-cloudwatch-logs-lambda.svg?colorB=2067b8)](https://github.com/robertpeteuil/terraform-aws-sns-to-cloudwatch-logs-lambda)
+[![Latest Release](https://img.shields.io/github/release/azt3k/terraform-aws-sns-to-cloudwatch-logs-lambda.svg)](https://github.com/azt3k/terraform-aws-sns-to-cloudwatch-logs-lambda) [![license](https://img.shields.io/github/license/azt3k/terraform-aws-sns-to-cloudwatch-logs-lambda.svg?colorB=2067b8)](https://github.com/azt3k/terraform-aws-sns-to-cloudwatch-logs-lambda)
 
 `terraform-aws-sns-to-cloudwatch-logs-lambda` is a Terraform module to provision a Lambda Function which routes SNS messages to CloudWatch Logs
 
@@ -20,7 +20,7 @@ This Module allows simple and rapid deployment
   - Set Log Group retention period
 - Python function editable in repository and in Lambda UI
   - Python dependencies packages in Lambda Layers zip
-- Optionally create custom Lambda Layer zip using [build-lambda-layer-python](https://github.com/robertpeteuil/build-lambda-layer-python)
+- Optionally create custom Lambda Layer zip using [build-lambda-layer-python](https://github.com/azt3k/build-lambda-layer-python)
   - Enables adding/changing dependencies
   - Enables compiling for different version of Python
 - **Breaking Changes** in `3.0.0` - required to enable new Terraform 0.13 module arguments `for_each`, `count`, and `depends_on`
@@ -45,7 +45,7 @@ This Lambda Function forwards subject & body of SNS messages to CloudWatch Log G
 
 ``` ruby
 module "sns_logger" {
-  source            = "robertpeteuil/sns-to-cloudwatch-logs-lambda/aws"
+  source            = "azt3k/sns-to-cloudwatch-logs-lambda/aws"
   version           = "3.0.1"     # Use with Terraform >= 0.12 (including 0.13)
   # version           = "1.0.1"   # Latest version for Terraform <= 0.11
 
@@ -70,6 +70,7 @@ module "sns_logger" {
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
 | create_sns_topic | Create new SNS topic | string | `true` | no |
+| enable_data_encryption | encrypts data at rest | bool | `false` | no |
 | create_log_group | Create new log group | string | `true` | no |
 | create_log_stream | Create new log stream | string | `true` | no |
 | log_group_retention_days | Log Group retention (days) | string | `0` (forever) | no |
